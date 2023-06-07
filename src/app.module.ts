@@ -8,9 +8,11 @@ import { DatabaseModule } from './database/database.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { TransformInterceptor } from './config/interceptors/transform.interceptor';
+import { KeycloakConnectModule } from 'nest-keycloak-connect';
 
 @Module({
   imports: [
+    KeycloakConnectModule,
     AuthModule,
     ConfigModule.forRoot({ isGlobal: true, load: [configuration] }),
     DatabaseModule,
