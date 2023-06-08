@@ -10,7 +10,7 @@ import { APP_GUARD } from '@nestjs/core';
 @Module({
   imports: [
     KeycloakConnectModule.register({
-      authServerUrl: 'http://tkeycloak.maib.test/',
+      authServerUrl: process.env.REACT_APP_API_auth,
 
       // might be http://localhost:8080/auth for older keycloak versions
       realm: process.env.REACT_APP_API_realm,
