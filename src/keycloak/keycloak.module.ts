@@ -13,9 +13,9 @@ import { APP_GUARD } from '@nestjs/core';
       authServerUrl: 'http://tkeycloak.maib.test/',
 
       // might be http://localhost:8080/auth for older keycloak versions
-      realm: 'test',
-      clientId: 'maibChatGPT',
-      secret: 'uFwhVnD8SQFQYQbOocq9fTglGSaPU09s',
+      realm: process.env.REACT_APP_API_realm,
+      clientId: process.env.REACT_APP_API_clientId,
+      secret: process.env.REACT_APP_API_secret,
 
       // Secret key of the client taken from keycloak server
     }),
