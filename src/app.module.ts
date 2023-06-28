@@ -14,6 +14,8 @@ import {  ChatModule } from './GPT/chat-gpt.module';
 @Module({
   imports: [
     // KeycloakModule,
+
+    
     ChatModule,
     AuthModule,
     ConfigModule.forRoot({ isGlobal: true, load: [configuration] }),
