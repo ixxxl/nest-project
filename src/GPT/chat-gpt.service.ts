@@ -1,25 +1,54 @@
-import { Injectable } from '@nestjs/common';
-import { OpenAi } from 'openai-node';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { ChatCompletionResponseMessage, CreateChatCompletionResponse, CreateCompletionResponse } from 'openai';
+import {Configuration, OpenAIApi } from 'openai';
+import { ConfigService } from '@nestjs/config';
 
+const RestrictedWords = ["test", "maib"]
+
+type ChatResponse = {
+  question: string,
+  answer: string
+}
 @Injectable()
 export class ChatbotService {
-  private openai: OpenAi;
+  private openai: OpenAIApi;
 
-  constructor() {
-    // Initialize OpenAI API client
-    this.openai = new OpenAi({
-      apiKey: process.env.REACT_APP_API_KEY,
-      oraginzation: process.env.REACT_APP_API_ORGANIZATION
+  constructor(private readonly configService: ConfigService) {
+    const configuration = new Configuration({
+      apiKey:  this.configService.get<string>('openAi.apiKey'),
+      // organization: this.configService.get<string>('openAi.organization'),
     });
+    this.openai = new OpenAIApi(configuration);
   }
 
-  async sendMessage(message: string): Promise<string> {
-    const response = await this.openai.complete({
-      engine: 'gpt-3.5',
-      prompt: message,
-      maxTokens: 100,
-    });
-
-    return response.choices[0].text.trim();
+  async sendMessage(message: string): Promise<ChatResponse> {
+    let restricted = [];
+    message.split(" ").forEach(word => {
+      if (RestrictedWords.includes(word.toLowerCase())) {
+        restricted = [...restricted, word]
+      }
+    })
+    if(restricted.length > 0) {
+      console.log("restricted", restricted)
+      throw new HttpException("RestrictedWords", HttpStatus.FORBIDDEN, {cause: "restricted", description: restricted.join(', ')});
+      // throw({
+      //   message: "RestrictedWords",
+      //   words: restricted
+      // })
+    }
+    try {
+      const response = await this.openai.createChatCompletion ({
+        model: 'gpt-3.5-turbo',
+        temperature: 0.8,
+        max_tokens: 2000,
+        messages: [{role: "user", content: message}],
+      });
+      return {
+        question: message,
+        answer: response.data.choices[0].message.content
+      }
+    } catch(e) {
+      throw(e);
+    }
   }
 }

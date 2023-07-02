@@ -1,0 +1,1 @@
+const RestrictedWords = ["test", "maib"]

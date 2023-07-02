@@ -14,4 +14,8 @@ export default () => ({
 
     dialect: process.env.DB_DIALECT,
   } as SequelizeModuleOptions,
+  openAi: {
+    apiKey: process.env.REACT_APP_API_KEY,
+    organization: process.env.REACT_APP_API_ORGANIZATION
+  }
 });

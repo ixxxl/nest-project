@@ -16,9 +16,9 @@ import {  ChatModule } from './GPT/chat-gpt.module';
     // KeycloakModule,
 
     
+    ConfigModule.forRoot({ isGlobal: true, load: [configuration] }),
     ChatModule,
     AuthModule,
-    ConfigModule.forRoot({ isGlobal: true, load: [configuration] }),
     DatabaseModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'static'),
