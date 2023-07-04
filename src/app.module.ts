@@ -9,13 +9,11 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { TransformInterceptor } from './config/interceptors/transform.interceptor';
 import { KeycloakModule } from './keycloak/keycloak.module';
-import {  ChatModule } from './GPT/chat-gpt.module';
+import { ChatModule } from './GPT/chat-gpt.module';
 
 @Module({
   imports: [
     // KeycloakModule,
-
-    
     ConfigModule.forRoot({ isGlobal: true, load: [configuration] }),
     ChatModule,
     AuthModule,

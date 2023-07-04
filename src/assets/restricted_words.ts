@@ -1,1 +1,1 @@
-const RestrictedWords = ["test", "maib"]
+export  const RestrictedWords = ["test", "maib"]

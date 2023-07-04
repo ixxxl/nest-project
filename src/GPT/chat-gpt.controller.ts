@@ -2,7 +2,6 @@ import { Controller, Post, Body } from '@nestjs/common';
 import { ChatbotService } from './chat-gpt.service';
 import { ApiBody } from '@nestjs/swagger';
 
-
 @Controller('chat')
 export class ChatController {
   constructor(private readonly chatbotService: ChatbotService) {}
@@ -12,7 +11,7 @@ export class ChatController {
     schema: {
       type: 'object',
       properties: {
-        message: { type: 'string' }
+        message: { type: 'string' },
       },
     },
   })
