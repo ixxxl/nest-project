@@ -16,7 +16,6 @@ export class AuthController {
         name: { type: 'string' },
         lastname: { type: 'string' },
         password: { type: 'string' },
-        
       },
     },
   })

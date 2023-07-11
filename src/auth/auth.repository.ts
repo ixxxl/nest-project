@@ -12,8 +12,8 @@ export class AuthRepository {
       name: user.name,
       password: user.password,
       lastname: user.lastname,
-   
     });
     return userAccount.save();
   }
+
 }

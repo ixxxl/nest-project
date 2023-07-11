@@ -13,8 +13,8 @@ import { ChatModule } from './GPT/chat-gpt.module';
 
 @Module({
   imports: [
-    // KeycloakModule,
     ConfigModule.forRoot({ isGlobal: true, load: [configuration] }),
+ //   KeycloakModule,
     ChatModule,
     AuthModule,
     DatabaseModule,
