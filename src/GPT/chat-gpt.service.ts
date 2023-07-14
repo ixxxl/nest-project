@@ -14,9 +14,11 @@ export class ChatbotService {
   constructor(private readonly configService: ConfigService) {
     const configuration = new Configuration({
       apiKey: this.configService.get<string>('openAi.apiKey'),
-      // organization: this.configService.get<string>('openAi.organization'),
+    //  organization: this.configService.get<string>('openAi.organization'),
+      
     });
     this.openai = new OpenAIApi(configuration);
+    console.log(configuration);
   }
 
   async sendMessage(message: string): Promise<ChatResponse> {

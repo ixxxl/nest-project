@@ -4,11 +4,19 @@ import {
   Body,
   UsePipes,
   ValidationPipe,
+  UseGuards,
 } from '@nestjs/common';
+import {
+  Resource,
+  Roles,
+  Scopes,
+  Public,
+  RoleMatchingMode,
+  AuthGuard,
+} from 'nest-keycloak-connect';
 import { ChatbotService } from './chat-gpt.service';
 import { ApiBody } from '@nestjs/swagger';
 import { validate } from 'class-validator';
-
 
 //@UsePipes(new ValidationPipe())
 @Controller('chat')
@@ -16,6 +24,7 @@ export class ChatController {
   constructor(private readonly chatbotService: ChatbotService) {}
 
   @Post()
+  // @Roles({ roles: ['test', 'other'] })
   @ApiBody({
     schema: {
       type: 'object',

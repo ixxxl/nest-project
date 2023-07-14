@@ -10,16 +10,19 @@ import { APP_GUARD } from '@nestjs/core';
 @Module({
   imports: [
     KeycloakConnectModule.register({
-      authServerUrl: process.env.REACT_APP_API_auth,
+      // authServerUrl: 'https://tkc.maib.test',
+      // realm: 'test',
+      // clientId: 'maibChatGPT',
+      // secret: 'uFwhVnD8SQFQYQbOocq9fTglGSaPU09s',
+      authServerUrl: 'https://kc.maib.md/',
+      realm: 'chatGPT',
+      clientId: 'maibChatGPT',
+      secret: 'DqULW0GDe32vm65e7iWbNrKdHAX4xDZq',
 
-      // might be http://localhost:8080/auth for older keycloak versions
-      realm: process.env.REACT_APP_API_realm,
-      clientId: process.env.REACT_APP_API_clientId,
-      secret: process.env.REACT_APP_API_secret,
-
-      // Secret key of the client taken from keycloak server
     }),
   ],
+
+
   providers: [
     {
       provide: APP_GUARD,
@@ -34,6 +37,6 @@ import { APP_GUARD } from '@nestjs/core';
       useClass: RoleGuard,
     },
   ],
-  exports: [KeycloakConnectModule], // exporting KeycloakConnectModule so that it can be used in other modules
+  exports: [KeycloakConnectModule],
 })
 export class KeycloakModule {}
